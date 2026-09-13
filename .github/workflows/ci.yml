@@ -1,21 +1,32 @@
 name: validate
+
 on:
   push:
   pull_request:
+
 jobs:
   static-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: hashicorp/setup-terraform@v3
-      - run: terraform fmt -check -recursive terraform
-      - uses: ansible/ansible-lint@main
-      - run: ansible-lint ansible
+
+      - name: Terraform format
+        run: terraform fmt -check -recursive terraform
+
+      - name: Install validation dependencies
+        run: python -m pip install --upgrade ansible-lint pyyaml
+
+      - name: Ansible lint
+        run: ansible-lint ansible
+
       - name: Validate OS catalogue YAML
-        run: python - <<'PY'
+        run: |
+          python - <<'PY'
           import yaml
           with open('policies/os-catalog.yml') as f:
-              data=yaml.safe_load(f)
+              data = yaml.safe_load(f)
           assert 'linux' in data and 'windows' in data
           print('catalogue ok')
           PY
