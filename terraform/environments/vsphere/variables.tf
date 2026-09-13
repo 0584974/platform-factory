@@ -1,3 +1,20 @@
+variable "vsphere_server" {
+  type        = string
+  description = "vCenter Server FQDN or IP. Prefer TF_VAR_vsphere_server at runtime."
+}
+
+variable "vsphere_user" {
+  type        = string
+  description = "vCenter service account. Prefer TF_VAR_vsphere_user at runtime."
+  sensitive   = true
+}
+
+variable "vsphere_password" {
+  type        = string
+  description = "vCenter password. Provide via TF_VAR_vsphere_password or a secret store; never commit it."
+  sensitive   = true
+}
+
 variable "allow_unverified_ssl" {
   type        = bool
   description = "Allow an untrusted vCenter TLS certificate. Keep false in production."
