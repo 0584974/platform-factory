@@ -1,0 +1,9 @@
+vm_name       = "tpl-windows-server-2022"
+guest_os_type = "windows2019srvNext_64Guest"
+iso_path      = "[Datastore1] iso/windows-server-2022-evaluation.iso"
+iso_checksum  = "none"
+image_name    = "Windows Server 2022 SERVERSTANDARD"
+cpus          = 2
+ram_mb        = 4096
+disk_size_mb  = 61440
+winrm_username = "Administrator"
