@@ -15,9 +15,9 @@ resource "libvirt_volume" "os" {
 }
 
 resource "libvirt_cloudinit_disk" "seed" {
-  count     = var.os_family == "linux" ? 1 : 0
-  name      = "${var.name}-cloudinit.iso"
-  pool      = "default"
+  count = var.os_family == "linux" ? 1 : 0
+  name  = "${var.name}-cloudinit.iso"
+  pool  = "default"
   user_data = templatefile("${path.module}/cloud-init.yaml.tftpl", {
     hostname       = var.name
     ssh_public_key = var.ssh_public_key
@@ -29,11 +29,15 @@ resource "libvirt_domain" "vm" {
   memory = var.memory_mb
   vcpu   = var.vcpu
 
-  disk { volume_id = libvirt_volume.os.id }
+  disk {
+    volume_id = libvirt_volume.os.id
+  }
 
   dynamic "cloudinit" {
     for_each = var.os_family == "linux" ? [1] : []
-    content { disk_id = libvirt_cloudinit_disk.seed[0].id }
+    content {
+      disk_id = libvirt_cloudinit_disk.seed[0].id
+    }
   }
 
   network_interface {
