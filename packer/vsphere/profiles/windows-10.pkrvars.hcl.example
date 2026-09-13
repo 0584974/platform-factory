@@ -1,0 +1,9 @@
+vm_name       = "tpl-windows-10"
+guest_os_type = "windows9_64Guest"
+iso_path      = "[Datastore1] iso/windows-10.iso"
+iso_checksum  = "none"
+image_name    = "Windows 10 Pro"
+cpus          = 2
+ram_mb        = 4096
+disk_size_mb  = 65536
+winrm_username = "Administrator"
