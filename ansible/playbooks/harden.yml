@@ -1,0 +1,10 @@
+- name: Harden Linux
+  hosts: linux
+  become: true
+  roles:
+    - hardening_linux
+
+- name: Harden Windows
+  hosts: windows
+  roles:
+    - hardening_windows
