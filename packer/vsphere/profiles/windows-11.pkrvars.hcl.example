@@ -1,0 +1,9 @@
+vm_name       = "tpl-windows-11"
+guest_os_type = "windows11_64Guest"
+iso_path      = "[Datastore1] iso/windows-11.iso"
+iso_checksum  = "none"
+image_name    = "Windows 11 Pro"
+cpus          = 2
+ram_mb        = 8192
+disk_size_mb  = 81920
+winrm_username = "Administrator"
