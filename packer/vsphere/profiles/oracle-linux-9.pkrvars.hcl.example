@@ -1,0 +1,18 @@
+vm_name       = "tpl-oracle-linux-9"
+guest_os_type = "oracleLinux9_64Guest"
+iso_path      = "[Datastore1] iso/OracleLinux-R9-Ux-x86_64-dvd.iso"
+iso_checksum  = "none"
+cpus          = 2
+ram_mb        = 4096
+disk_size_mb  = 40960
+
+ssh_username     = "automation"
+answer_file      = "http/oracle-linux/ks.cfg.pkrtpl.hcl"
+answer_file_name = "ks.cfg"
+
+boot_command = [
+  "<up><wait>e<wait>",
+  "<down><down><end>",
+  " inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg",
+  "<ctrl+x><wait>"
+]
