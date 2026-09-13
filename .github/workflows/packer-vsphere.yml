@@ -1,0 +1,50 @@
+name: validate-packer-vsphere
+
+on:
+  push:
+    paths:
+      - 'packer/vsphere/**'
+      - '.github/workflows/packer-vsphere.yml'
+  pull_request:
+    paths:
+      - 'packer/vsphere/**'
+      - '.github/workflows/packer-vsphere.yml'
+
+jobs:
+  packer-vsphere:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: latest
+
+      - name: Packer format
+        run: packer fmt -check packer/vsphere/linux.pkr.hcl packer/vsphere/windows.pkr.hcl
+
+      - name: Initialize Linux builder
+        run: packer init packer/vsphere/linux.pkr.hcl
+
+      - name: Validate Linux builder syntax
+        run: packer validate -syntax-only packer/vsphere/linux.pkr.hcl
+
+      - name: Initialize Windows builder
+        run: packer init packer/vsphere/windows.pkr.hcl
+
+      - name: Validate Windows builder syntax
+        run: packer validate -syntax-only packer/vsphere/windows.pkr.hcl
+
+      - name: Validate XML answer templates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          for path in [
+              Path('packer/vsphere/http/sles/autoinst.xml.pkrtpl.hcl'),
+              Path('packer/vsphere/windows/Autounattend.xml.pkrtpl.hcl'),
+          ]:
+              ET.parse(path)
+              print(f'{path}: XML ok')
+          PY
