@@ -1,0 +1,26 @@
+datacenter = "DC01"
+cluster    = "Cluster01"
+datastore  = "Datastore01"
+network    = "VM Network"
+vm_folder  = "Platform-Factory"
+
+# Keep false with a trusted vCenter certificate.
+allow_unverified_ssl = false
+
+machines = {
+  ubuntu2404-01 = {
+    os_family    = "linux"
+    template     = "tpl-ubuntu-24.04"
+    num_cpus     = 2
+    memory_mb    = 4096
+    disk_size_gb = 40
+  }
+
+  win2025-01 = {
+    os_family    = "windows"
+    template     = "tpl-windows-server-2025"
+    num_cpus     = 4
+    memory_mb    = 8192
+    disk_size_gb = 80
+  }
+}
