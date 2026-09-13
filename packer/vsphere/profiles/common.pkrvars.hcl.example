@@ -1,0 +1,14 @@
+vsphere_server      = "vcenter.example.com"
+vsphere_username    = "svc-packer@vsphere.local"
+insecure_connection = false
+
+datacenter = "DC1"
+cluster    = "Cluster1"
+datastore  = "Datastore1"
+network    = "VM Network"
+folder     = "Templates/PlatformFactory"
+
+# Passwords/hashes are intentionally absent. Supply them at runtime:
+#   Packer vSphere: Packer variable vsphere_password
+#   Linux builder:  ssh_password + ssh_password_hash
+#   Windows builder: winrm_password
