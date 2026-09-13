@@ -1,0 +1,16 @@
+vm_name       = "tpl-sles-15"
+guest_os_type = "sles15_64Guest"
+iso_path      = "[Datastore1] iso/SLE-15-SPx-Full-x86_64-GM-Media1.iso"
+iso_checksum  = "none"
+cpus          = 2
+ram_mb        = 4096
+disk_size_mb  = 40960
+
+ssh_username     = "automation"
+answer_file      = "http/sles/autoinst.xml.pkrtpl.hcl"
+answer_file_name = "autoinst.xml"
+
+boot_command = [
+  "<esc><wait>",
+  "linux autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinst.xml netsetup=dhcp<enter>"
+]
