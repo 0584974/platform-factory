@@ -43,9 +43,9 @@ terraform plan
 ### VMware vSphere
 
 ```bash
-export VSPHERE_SERVER='vcenter.example.com'
-export VSPHERE_USER='svc-terraform@vsphere.local'
-export VSPHERE_PASSWORD='...'
+export TF_VAR_vsphere_server='vcenter.example.com'
+export TF_VAR_vsphere_user='svc-terraform@vsphere.local'
+export TF_VAR_vsphere_password='...'
 cd terraform/environments/vsphere
 cp terraform.tfvars.example terraform.tfvars
 terraform init
