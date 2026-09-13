@@ -1,0 +1,3 @@
+# Upload or expose a VMware Tools ISO in a datastore and point the builder at it.
+# The unattended bootstrap installs setup64.exe before Packer connects over WinRM.
+vmtools_iso_path = "[Datastore1] iso/windows-tools.iso"
