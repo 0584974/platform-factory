@@ -1,0 +1,16 @@
+ssh_public_key = "ssh-ed25519 AAAA...replace-me"
+
+machines = {
+  ubuntu2404 = {
+    os_family  = "linux"
+    memory_mb  = 4096
+    vcpu       = 2
+    base_image = "/var/lib/libvirt/images/ubuntu-24.04-base.qcow2"
+  }
+  oracle9 = {
+    os_family  = "linux"
+    memory_mb  = 4096
+    vcpu       = 2
+    base_image = "/var/lib/libvirt/images/oraclelinux-9-base.qcow2"
+  }
+}

@@ -1,0 +1,26 @@
+linux:
+  ubuntu:
+    supported: ["22.04", "24.04"]
+    bootstrap: cloud-init
+    hardening: cis-level1
+  debian:
+    supported: ["12", "13"]
+    bootstrap: cloud-init
+    hardening: cis-level1
+  oracle_linux:
+    supported: ["8", "9"]
+    bootstrap: cloud-init
+    hardening: cis-level1
+  sles:
+    supported: ["15"]
+    bootstrap: cloud-init-or-autoyast
+    hardening: cis-level1
+windows:
+  server:
+    supported: ["2022", "2025"]
+    bootstrap: unattend-winrm
+    hardening: microsoft-security-baseline
+  client:
+    supported: ["10", "11"]
+    bootstrap: unattend-winrm
+    hardening: microsoft-security-baseline
