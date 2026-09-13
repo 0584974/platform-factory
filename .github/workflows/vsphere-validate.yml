@@ -1,0 +1,26 @@
+name: validate-vsphere
+
+on:
+  push:
+    paths:
+      - 'terraform/modules/vsphere_vm/**'
+      - 'terraform/environments/vsphere/**'
+      - '.github/workflows/vsphere-validate.yml'
+  pull_request:
+    paths:
+      - 'terraform/modules/vsphere_vm/**'
+      - 'terraform/environments/vsphere/**'
+      - '.github/workflows/vsphere-validate.yml'
+
+jobs:
+  terraform-vsphere:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform format
+        run: terraform fmt -check -recursive terraform/modules/vsphere_vm terraform/environments/vsphere
+      - name: Terraform init
+        run: terraform -chdir=terraform/environments/vsphere init -backend=false
+      - name: Terraform validate
+        run: terraform -chdir=terraform/environments/vsphere validate
