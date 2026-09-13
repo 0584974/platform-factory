@@ -1,0 +1,10 @@
+- name: Linux baseline
+  hosts: linux
+  become: true
+  roles:
+    - common
+
+- name: Windows baseline
+  hosts: windows
+  roles:
+    - common
