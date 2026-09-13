@@ -15,12 +15,12 @@ The current `vmware/vsphere` provider supports vSphere 8.x and 9.x. The free vSp
 
 ## Authentication
 
-Keep credentials outside Terraform files. The vSphere provider accepts its standard environment variables:
+Keep credentials outside Terraform files. This environment wires provider arguments through Terraform variables, so inject them at runtime with `TF_VAR_...` variables or a secret manager:
 
 ```bash
-export VSPHERE_SERVER='vcenter.example.com'
-export VSPHERE_USER='svc-terraform@vsphere.local'
-export VSPHERE_PASSWORD='...'
+export TF_VAR_vsphere_server='vcenter.example.com'
+export TF_VAR_vsphere_user='svc-terraform@vsphere.local'
+export TF_VAR_vsphere_password='...'
 ```
 
 Production environments should keep `allow_unverified_ssl = false` and trust the vCenter certificate.
