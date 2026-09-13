@@ -7,7 +7,7 @@ GitHub-ready reference implementation for creating a VM platform from code:
 Two provider paths are currently included:
 
 - **libvirt/KVM** — lightweight demonstration path without cloud credentials.
-- **VMware vSphere** — real vCenter/vSphere provisioning by cloning organization-approved VM templates and passing them to the same Ansible baseline/hardening layer.
+- **VMware vSphere** — vCenter/vSphere provisioning plus a Packer `vsphere-iso` image-factory path for unattended OS installation.
 
 Provider-specific modules for Azure, AWS and Proxmox can be added without changing the Ansible operating-system layer.
 
@@ -20,16 +20,19 @@ Provider-specific modules for Azure, AWS and Proxmox can be added without changi
 - Windows Server 2022 / 2025
 - Windows 10 / 11
 
-Linux guests use cloud-init where appropriate. Windows guests are designed around an Unattend + WinRM bootstrap. No proprietary OS image is stored in this repository.
+The first vSphere image-factory profiles currently implement Ubuntu 24.04, Debian 12, Oracle Linux 9, SLES 15, Windows Server 2022/2025 and Windows 10/11. Linux uses the native unattended installer for each distribution; Windows uses Unattend + WinRM. No proprietary OS image or credential is stored in this repository.
 
 ## Repository flow
 
 ```text
-packer/ -> golden image
-terraform/ -> VM + network + disk + generated inventory
-ansible/playbooks/base.yml -> baseline configuration
-ansible/playbooks/harden.yml -> OS hardening
-ansible/playbooks/validate.yml -> post-build checks
+ISO
+  -> Packer unattended OS build
+  -> vSphere golden template
+  -> Terraform clone + network/storage
+  -> generated Ansible inventory
+  -> baseline configuration
+  -> hardening
+  -> validation
 ```
 
 ### libvirt/KVM
@@ -40,7 +43,7 @@ terraform init
 terraform plan
 ```
 
-### VMware vSphere
+### VMware vSphere provisioning
 
 ```bash
 export TF_VAR_vsphere_server='vcenter.example.com'
@@ -52,7 +55,7 @@ terraform init
 terraform plan
 ```
 
-See [`docs/vsphere.md`](docs/vsphere.md) for prerequisites, template requirements and the image-to-VM workflow.
+See [`docs/vsphere.md`](docs/vsphere.md) for Terraform provisioning and [`packer/vsphere/README.md`](packer/vsphere/README.md) for unattended golden-image creation from ISO media.
 
 ## Safety
 
