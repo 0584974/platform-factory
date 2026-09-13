@@ -1,0 +1,10 @@
+- name: Gather facts
+  ansible.builtin.setup:
+
+- name: Ensure Linux baseline packages
+  ansible.builtin.package:
+    name:
+      - curl
+      - ca-certificates
+    state: present
+  when: ansible_os_family != 'Windows'
