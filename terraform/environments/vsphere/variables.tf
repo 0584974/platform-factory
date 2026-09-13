@@ -18,10 +18,10 @@ variable "vm_folder" {
 variable "machines" {
   description = "VMs cloned from existing vSphere templates. Templates should include VMware Tools and SSH/WinRM bootstrap."
   type = map(object({
-    os_family   = string
-    template    = string
-    num_cpus    = number
-    memory_mb   = number
+    os_family    = string
+    template     = string
+    num_cpus     = number
+    memory_mb    = number
     disk_size_gb = number
   }))
 
