@@ -31,6 +31,11 @@ variable "folder" {
 variable "vm_name" { type = string }
 variable "guest_os_type" { type = string }
 variable "iso_path" { type = string }
+variable "vmtools_iso_path" {
+  type        = string
+  description = "Optional datastore path to a VMware Tools Windows ISO. Leave empty only if the install media already provides Tools."
+  default     = ""
+}
 variable "iso_checksum" {
   type    = string
   default = "none"
@@ -91,14 +96,14 @@ source "vsphere-iso" "windows" {
     disk_thin_provisioned = true
   }
 
-  iso_paths    = [var.iso_path]
+  iso_paths    = compact([var.iso_path, var.vmtools_iso_path])
   iso_checksum = var.iso_checksum
 
   cd_content = {
     "Autounattend.xml" = templatefile("windows/Autounattend.xml.pkrtpl.hcl", {
-      image_name       = var.image_name
-      admin_password   = var.winrm_password
-      admin_username   = var.winrm_username
+      image_name     = var.image_name
+      admin_password = var.winrm_password
+      admin_username = var.winrm_username
     })
     "SetupComplete.ps1" = file("windows/SetupComplete.ps1")
   }
