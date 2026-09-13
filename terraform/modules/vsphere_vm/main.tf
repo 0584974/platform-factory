@@ -4,9 +4,9 @@ resource "vsphere_virtual_machine" "this" {
   datastore_id     = var.datastore_id
   folder           = var.folder
 
-  num_cpus = var.num_cpus
-  memory   = var.memory_mb
-  guest_id = var.guest_id
+  num_cpus  = var.num_cpus
+  memory    = var.memory_mb
+  guest_id  = var.guest_id
   scsi_type = var.scsi_type
 
   wait_for_guest_ip_timeout  = var.wait_for_guest_ip_timeout
