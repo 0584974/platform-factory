@@ -1,0 +1,21 @@
+vm_name       = "tpl-ubuntu-24.04"
+guest_os_type = "ubuntu64Guest"
+iso_path      = "[Datastore1] iso/ubuntu-24.04-live-server-amd64.iso"
+iso_checksum  = "none"
+cpus          = 2
+ram_mb        = 4096
+disk_size_mb  = 40960
+
+ssh_username  = "automation"
+answer_file      = "http/ubuntu/user-data.pkrtpl.hcl"
+answer_file_name = "user-data"
+extra_http_content = {
+  "meta-data" = ""
+}
+
+boot_command = [
+  "<esc><wait>e<wait>",
+  "<down><down><down><end>",
+  " autoinstall ds=nocloud-net\\;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ---",
+  "<f10><wait>"
+]
