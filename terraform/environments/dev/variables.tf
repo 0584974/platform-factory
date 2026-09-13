@@ -1,5 +1,13 @@
-variable "libvirt_uri" { type = string, default = "qemu:///system" }
-variable "ssh_public_key" { type = string, default = "" }
+variable "libvirt_uri" {
+  type    = string
+  default = "qemu:///system"
+}
+
+variable "ssh_public_key" {
+  type    = string
+  default = ""
+}
+
 variable "machines" {
   type = map(object({
     os_family  = string
